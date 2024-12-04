@@ -1,0 +1,15 @@
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{adjustbox}{max
+width={\textwidth},caption={Candidate characteristic RDD analysis\label{tab:characteristics}},nofloat=table}
+\begin{tabular}{l*{9}{c}}
+\toprule
+                    &\multicolumn{1}{c}{pca\_index}&\multicolumn{1}{c}{prior\_experience}&\multicolumn{1}{c}{criminal\_record}&\multicolumn{1}{c}{business\_background}&\multicolumn{1}{c}{social\_leader}&\multicolumn{1}{c}{years\_education}&\multicolumn{1}{c}{age\_candidate}&\multicolumn{1}{c}{campaign\_budget}&\multicolumn{1}{c}{years\_in\_local\_government}\\
+\midrule
+RD\_Estimate         &       1.934\sym{**} &       0.179         &      -0.303         &      0.0150         &      0.0274         &       0.525         &       1.629         &      2038.0\sym{***}&       0.673         \\
+                    &      (2.84)         &      (0.60)         &     (-1.26)         &      (0.05)         &      (0.11)         &      (0.60)         &      (0.98)         &     (21.42)         &      (0.93)         \\
+\midrule
+Observations        &         152         &         152         &         152         &         152         &         152         &         152         &         152         &         152         &         152         \\
+\bottomrule
+\multicolumn{10}{p{\textwidth}}{\centering \footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{10}{p{\textwidth}}{\centering \footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}\end{adjustbox}

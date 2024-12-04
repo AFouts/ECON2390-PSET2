@@ -1,0 +1,28 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{IV\label{tab:IV-2SLS-IV-Wald-CP}}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                    &\multicolumn{1}{c}{2SLS}&\multicolumn{1}{c}{Wald}&\multicolumn{1}{c}{2SLS X=(0,0)}&\multicolumn{1}{c}{2SLS X=(1,0)}&\multicolumn{1}{c}{2SLS X=(0,1)}&\multicolumn{1}{c}{2SLS X=(1,1)}\\
+\midrule
+D                   &       7.633\sym{***}&       7.633\sym{***}&       5.993\sym{***}&       7.925\sym{***}&       7.023\sym{***}&       8.930\sym{***}\\
+                    &     (46.28)         &     (46.02)         &     (59.52)         &     (88.25)         &     (74.59)         &    (103.58)         \\
+\addlinespace
+x1                  &       0.124\sym{*}  &                     &                     &                     &                     &                     \\
+                    &      (2.25)         &                     &                     &                     &                     &                     \\
+\addlinespace
+x2                  &      0.0708         &                     &                     &                     &                     &                     \\
+                    &      (1.44)         &                     &                     &                     &                     &                     \\
+\addlinespace
+x1x2                &       0.282\sym{***}&                     &                     &                     &                     &                     \\
+                    &      (3.84)         &                     &                     &                     &                     &                     \\
+\addlinespace
+Constant            &       1.039\sym{***}&       1.208\sym{***}&    -0.00624         &      0.0198         &    -0.00958         &       0.125         \\
+                    &     (10.49)         &     (13.17)         &     (-0.10)         &      (0.48)         &     (-0.13)         &      (1.61)         \\
+\midrule
+Observations        &       10000         &       10000         &         417         &         833         &         417         &         833         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

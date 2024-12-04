@@ -1,37 +1,19 @@
-\documentclass{article}
-\usepackage{multirow}
-\usepackage{amsmath}
-\usepackage{ulem}
-\usepackage[table]{xcolor}
-\begin{document}
-\begin{table}[!h]
-\caption{Simple OLS regression model}
-\centering
-\begin{tabular}{lll}
-\cline{1-3}
-\multicolumn{1}{r}{} &
-  \multicolumn{2}{c}{Y} \\
-\cline{1-3}
-\multicolumn{1}{l}{(mean) PANwin} &
-  \multicolumn{1}{r}{0.904} &
-  \multicolumn{1}{l}{} \\
-\multicolumn{1}{l}{} &
-  \multicolumn{1}{r}{(14.050)} &
-  \multicolumn{1}{l}{} \\
-\multicolumn{1}{l}{Intercept} &
-  \multicolumn{1}{r}{43.626} &
-  \multicolumn{1}{l}{**} \\
-\multicolumn{1}{l}{} &
-  \multicolumn{1}{r}{(9.534)} &
-  \multicolumn{1}{l}{} \\
-\multicolumn{1}{l}{Number of observations} &
-  \multicolumn{1}{r}{152} &
-  \multicolumn{1}{l}{} \\
-\cline{1-3}
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Simple OLS regression model\label{tab:model1}}
+\begin{tabular}{l*{1}{c}}
+\toprule
+                    &\multicolumn{1}{c}{Y}\\
+\midrule
+(mean) PANwin       &       0.904         \\
+                    &      (0.06)         \\
+\addlinespace
+Constant            &       43.63\sym{***}\\
+                    &      (4.58)         \\
+\midrule
+Observations        &         152         \\
+\bottomrule
+\multicolumn{2}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{2}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
 \end{tabular}
-
-\footnotesize{
-** p$<$.01, * p$<$.05
-}
 \end{table}
-\end{document}

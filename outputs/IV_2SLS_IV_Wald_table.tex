@@ -1,0 +1,28 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{IV\label{tab:IV-2SLS-IV-Wald}}
+\begin{tabular}{l*{2}{c}}
+\toprule
+                    &\multicolumn{1}{c}{2SLS}&\multicolumn{1}{c}{Wald}\\
+\midrule
+D                   &       7.633\sym{***}&       7.633\sym{***}\\
+                    &     (46.28)         &     (46.02)         \\
+\addlinespace
+x1                  &       0.124\sym{*}  &                     \\
+                    &      (2.25)         &                     \\
+\addlinespace
+x2                  &      0.0708         &                     \\
+                    &      (1.44)         &                     \\
+\addlinespace
+x1x2                &       0.282\sym{***}&                     \\
+                    &      (3.84)         &                     \\
+\addlinespace
+Constant            &       1.039\sym{***}&       1.208\sym{***}\\
+                    &     (10.49)         &     (13.17)         \\
+\midrule
+Observations        &       10000         &       10000         \\
+\bottomrule
+\multicolumn{3}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{3}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}

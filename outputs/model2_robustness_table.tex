@@ -1,0 +1,16 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{RDD model robustness\label{tab:model2-robustness}}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                    &\multicolumn{1}{c}{Para tri lin}&\multicolumn{1}{c}{Para tri lin 5\%}&\multicolumn{1}{c}{Para tri lin 10\%}&\multicolumn{1}{c}{Para tri lin 20\%}\\
+\midrule
+RD\_Estimate         &       80.25\sym{*}  &       80.25\sym{*}  &       98.36\sym{*}  &       48.95         \\
+                    &      (2.25)         &      (2.25)         &      (2.14)         &      (1.00)         \\
+\midrule
+Observations        &         152         &         152         &         151         &         144         \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
