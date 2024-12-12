@@ -50,16 +50,16 @@ graph export "outputs/binned_scatter_esmv_quadratic_plot.pdf", replace
 rdplot Y margin_victory, c(0) binselect(esmv) p(3) graph_options(title() legend(position(6)))
 graph export "outputs/binned_scatter_esmv_cubic_plot.pdf", replace
 
-rdplot Y margin_victory, c(0) binselect(es) p(3) graph_options(title() legend(position(6)))
+rdplot Y margin_victory, c(0) binselect(es) p(2) graph_options(title() ylabel(0(50)400) legend(position(6)))
 graph export "outputs/binned_scatter_es_cubic_plot.pdf", replace
 
-rdplot Y margin_victory, c(0) binselect(qs) p(3) graph_options(title() legend(position(6)))
+rdplot Y margin_victory, c(0) binselect(qs) p(2) graph_options(title() ylabel(0(50)400) legend(position(6)))
 graph export "outputs/binned_scatter_qs_cubic_plot.pdf", replace
 
-rdplot Y margin_victory, c(0) nbins(10) p(3) graph_options(title() legend(position(6)))
+rdplot Y margin_victory, c(0) nbins(10) p(2) graph_options(title() ylabel(0(50)400) legend(position(6)))
 graph export "outputs/binned_scatter_10bins_cubic_plot.pdf", replace
 
-rdplot Y margin_victory, c(0) nbins(20) p(3) graph_options(title() legend(position(6)))
+rdplot Y margin_victory, c(0) nbins(20) p(2) graph_options(title() ylabel(0(50)400) legend(position(6)))
 graph export "outputs/binned_scatter_20bins_cubic_plot.pdf", replace
 
 // 1.e.
@@ -78,7 +78,7 @@ est store para_trian_lin
 
 rdbwselect Y margin_victory, c(0) p(2) kernel(triangular) bwselect(mserd)
 local optimal_bandwidth = e(h_mserd)
-//gen margin_victory2 = margin_victory^2
+gen margin_victory2 = margin_victory^2
 label variable margin_victory2 "(mean) spread squared"
 regress Y margin_victory margin_victory2 PANwin c.margin_victory#PANwin c.margin_victory2#PANwin ///
 if abs(margin_victory) <= `optimal_bandwidth'
@@ -87,9 +87,15 @@ est store para_trian_quad
 esttab non_para_trian_lin non_para_trian_quad para_trian_lin para_trian_quad ///
 using "outputs/model2_table.tex", replace ///
 label booktabs ///
-title("Non parametric and parametric RDD models\label{tab:model2}") ///
-mtitles("Para tri lin" "Para tri quad" "Non-para lin" "Non-para quad") ///
+title("Non-parametric and parametric RDD models\label{tab:model2}") ///
+mtitles("Non-para tri lin" "Non-para tri quad" "Para lin" "Para quad") ///
 style(tex) nonumber noomitted nobaselevels 
+
+est restore non_para_trian_lin
+local bdth_l = e(b_l)
+local bdth_r = e(b_r)
+rdplot Y margin_victory, p(1) kernel(tri) masspoints(adjust) graph_options(title() legend(position(6))) h(`bdth_l' `bdth_r') 
+graph export "outputs/binned_scatter_esmv_linear_plot_corrected.pdf", replace
 
 // 1.f.
 
@@ -172,7 +178,7 @@ graph export "outputs/characteristics_binned_scatter_esmv_linear_plot.pdf", repl
 
 foreach var in prior_experience criminal_record business_background social_leader years_education age_candidate campaign_budget years_in_local_government {
     summarize `var'
-    gen `var'_z = (`var' - r(mean)) / r(sd), replace
+    gen `var'_z = (`var' - r(mean)) / r(sd)
 }
 
 pca prior_experience_z criminal_record_z business_background_z social_leader_z years_education_z age_candidate_z campaign_budget_z years_in_local_government_z
@@ -209,51 +215,81 @@ rdrobust years_in_local_government margin_victory, c(0) p(1) kernel(triangular) 
 est store years_in_local_government
 scalar betaD_years_in_local_government = e(tau_cl)
 
-
 estwide pca_index prior_experience criminal_record business_background social_leader years_education age_candidate campaign_budget years_in_local_government ///
 using "outputs/characteristics_table.tex", replace ///
 label booktabs ///
 title("Candidate characteristic RDD analysis\label{tab:characteristics}") ///
 mtitles("pca_index" "prior_experience" "criminal_record" "business_background" "social_leader" "years_education" "age_candidate" "campaign_budget" "years_in_local_government") ///
 style(tex) nonumber noomitted nobaselevels 
-/// prehead(`"\begin{table}"' `"\tiny"') ///
-//postfoot(`"\end{table}"')
+
+save "data/temp/intermediary_0.dta", replace
 
 // 1.i.
+
+use "data/temp/intermediary_0.dta", clear
 
 foreach var in prior_experience criminal_record business_background social_leader years_education age_candidate campaign_budget years_in_local_government {
     regress Y `var'
     scalar beta_`var' = _b[`var']
 }
 
-set obs 6561  // Number of combinations
+foreach var in prior_experience criminal_record business_background social_leader years_education age_candidate campaign_budget years_in_local_government {
+	rdrobust `var' margin_victory, c(0) p(1) kernel(triangular)
+	scalar delta_`var' = e(tau_cl)
+}
 
-gen weight_prior_experience = cond(mod((_n-1), 3) == 0, 0.5, ///
-              cond(mod((_n-1), 3) == 1, 1, 1.5))
-gen weight_criminal_record = cond(mod((_n-1)/3, 3) == 0, 0.5, ///
-              cond(mod((_n-1)/3, 3) == 1, 1, 1.5))
-gen weight_business_background = cond(mod((_n-1)/9, 3) == 0, 0.5, ///
-              cond(mod((_n-1)/9, 3) == 1, 1, 1.5))
-gen weight_social_leader = cond(mod((_n-1)/27, 3) == 0, 0.5, ///
-              cond(mod((_n-1)/27, 3) == 1, 1, 1.5))
-gen weight_years_education = cond(mod((_n-1)/81, 3) == 0, 0.5, ///
-              cond(mod((_n-1)/81, 3) == 1, 1, 1.5))
-gen weight_age_candidate = cond(mod((_n-1)/243, 3) == 0, 0.5, ///
-              cond(mod((_n-1)/243, 3) == 1, 1, 1.5))
-gen weight_campaign_budget = cond(mod((_n-1)/729, 3) == 0, 0.5, ///
-              cond(mod((_n-1)/729, 3) == 1, 1, 1.5))
-gen weight_years_in_local_government = cond(mod((_n-1)/2187, 3) == 0, 0.5, ///
-              cond(mod((_n-1)/2187, 3) == 1, 1, 1.5))
+rdrobust Y margin_victory, c(0) p(1) kernel(triangular)
+gen tau_rdd = e(tau_cl)
 
-gen correction = ///
-weight_prior_experience          * gamma_prior_experience          * betaD_prior_experience ///
-+ weight_criminal_record           * beta_criminal_record           * betaD_criminal_record ///
-+ weight_business_background       * beta_business_background       * betaD_business_background ///
-+ weight_social_leader             * beta_social_leader             * betaD_social_leader ///
-+ weight_years_education           * beta_years_education           * betaD_years_education /// 
-+ weight_age_candidate             * beta_age_candidate             * betaD_age_candidate ///
-+ weight_campaign_budget           * beta_campaign_budget           * betaD_campaign_budget /// 
-+ weight_years_in_local_government * beta_years_in_local_government * betaD_years_in_local_government
+save "data/temp/intermediary_00.dta", replace
+
+clear
+set obs 1
+gen wgt_prior_experience = .
+gen wgt_criminal_record = .
+gen wgt_business_background = .
+gen wgt_social_leader = .
+gen wgt_years_education = .
+gen wgt_age_candidate = .
+gen wgt_campaign_budget = .
+gen wgt_years_in_local_government = .
+foreach p1 in 0.5 1 1.5 {
+foreach p2 in 0.5 1 1.5 {
+foreach p3 in 0.5 1 1.5 {
+foreach p4 in 0.5 1 1.5 {
+foreach p5 in 0.5 1 1.5 {
+foreach p6 in 0.5 1 1.5 {
+foreach p7 in 0.5 1 1.5 {
+foreach p8 in 0.5 1 1.5 {
+expand 2 if _n == _N 
+replace wgt_prior_experience = beta_prior_experience * `p1' if _n == _N
+replace wgt_criminal_record = beta_criminal_record * `p2' if _n == _N
+replace wgt_business_background = beta_business_background * `p3' if _n == _N
+replace wgt_social_leader = beta_social_leader * `p4' if _n == _N
+replace wgt_years_education = beta_years_education * `p5' if _n == _N
+replace wgt_age_candidate = beta_age_candidate * `p6' if _n == _N
+replace wgt_campaign_budget = beta_campaign_budget * `p7' if _n == _N
+replace wgt_years_in_local_government = beta_years_in_local_government * `p8' ///
+if _n == _N
+}
+}
+}
+}
+}
+}
+}
+}
+drop if _n == 1
+
+append using "data/temp/intermediary_00.dta"
+
+foreach var in prior_experience criminal_record business_background social_leader years_education age_candidate campaign_budget years_in_local_government {
+	gen adj_`var' = delta_`var' * wgt_`var'
+}
+
+gen correction = adj_prior_experience + adj_criminal_record ///
++ adj_business_background + adj_social_leader + adj_years_education ///
++ adj_age_candidate + adj_campaign_budget + adj_years_in_local_government
 
 summarize correction
 local correction_mean = r(mean)
@@ -336,129 +372,86 @@ mtitles("2SLS" "Wald") ///
 style(tex) nonumber noomitted nobaselevels
 
 // 2.b.
-
+ivregress 2sls Y (D = Z) x1 x2 x1x2 if covariate_type == 1
+est store CP_1_Est
 regress Y D x1 x2 x1x2 if G == "CP" & covariate_type == 1
-est store CP_1
+est store CP_1_True
 scalar beta_CP_1 = _b[D]
+ivregress 2sls Y (D = Z) x1 x2 x1x2 if covariate_type == 2
+est store CP_2_Est
 regress Y D x1 x2 x1x2 if G == "CP" & covariate_type == 2
-est store CP_2
+est store CP_2_True
 scalar beta_CP_2 = _b[D]
+ivregress 2sls Y (D = Z) x1 x2 x1x2 if covariate_type == 3
+est store CP_3_Est
 regress Y D x1 x2 x1x2 if G == "CP" & covariate_type == 3
-est store CP_3
+est store CP_3_True
 scalar beta_CP_3 = _b[D]
+ivregress 2sls Y (D = Z) x1 x2 x1x2 if covariate_type == 4
+est store CP_4_Est
 regress Y D x1 x2 x1x2 if G == "CP" & covariate_type == 4
-est store CP_4
+est store CP_4_True
 scalar beta_CP_4 = _b[D]
 
-esttab IV_2SLS IV_Wald CP_1 CP_2 CP_3 CP_4 ///
+estwide CP_1_Est CP_1_True CP_2_Est CP_2_True CP_3_Est CP_3_True CP_4_Est CP_4_True ///
 using "outputs/IV_2SLS_IV_Wald_CP_table.tex", replace ///
 label booktabs ///
-title("Unconditional and conditional LATEs \label{tab:IV-2SLS-IV-Wald-CP}") ///
-mtitles("2SLS" "Wald" "2SLS X=(0,0)" "2SLS X=(1,0)" "2SLS X=(0,1)" "2SLS X=(1,1)") ///
+title("Estimated and true conditional LATEs \label{tab:IV-2SLS-IV-Wald-CP}") ///
+mtitles("2SLS X=(0,0)" "LATE X=(0,0)" "2SLS X=(1,0)" "LATE X=(1,0)" "2SLS X=(0,1)" "LATE X=(0,1)" "2SLS X=(1,1)" "LATE X=(1,1)") ///
 style(tex) nonumber noomitted nobaselevels
+
+save "data/temp/intermediary_1.dta", replace
 
 // 2.c.
 
+use "data/temp/intermediary_1.dta", clear
+
+collapse (mean) D (count) D_new = D, by(covariate_type Z)
+rename D mean_D
 preserve
-collapse (mean) D, by(covariate_type Z)
-gen V_X = D if Z == 1
-replace V_X = -D if Z == 0
-collapse (sum) V_X, by(covariate_type)
-summarize V_X
-scalar sum_V = r(sum)
-gen weight = V_X / (sum_V / 4)
+collapse (mean) mean_D, by(covariate_type)
+rename mean_D group_mean_D
+save temp_group_means, replace
+restore
+merge m:1 covariate_type using temp_group_means
+drop _merge
+gen diff = mean_D - group_mean_D
+gen diff_squared = diff^2
+collapse (mean) diff_squared, by(covariate_type)
+rename diff_squared var_D
+summarize var_D
+gen weight = var_D / r(mean)
+levelsof covariate_type, local(covariate_type_values)
 forval i = 1/4 {
     scalar weight_X`i' = weight[`i']
+	di weight_X`i'
 }
-restore
 
 scalar beta_2SLS = (weight_X1 * beta_CP_1 + weight_X2 * beta_CP_2 ///
 + weight_X3 * beta_CP_3 + weight_X4 * beta_CP_4) /4
 
 est restore IV_2SLS
-estadd scalar Weight00 = weight_X1
-estadd scalar Weight10 = weight_X2
-estadd scalar Weight01 = weight_X3
-estadd scalar Weight11 = weight_X4
-estadd scalar LATEsCvxWghtedAvg = beta_2SLS
-esttab . using "outputs/angrist_table.tex", keep(D) varlabels(D "Beta 2SLS")replace stats(Weight00 Weight10 Weight01 Weight11 LATEsCvxWghtedAvg) title("Weights and convex weighted average of the conditional LATEs\label{tab:Angrist}")  mtitles("") style(tex) nonumber not nostar
+estadd scalar Weight00 = weight_X1, replace
+estadd scalar Weight10 = weight_X2, replace
+estadd scalar Weight01 = weight_X3, replace
+estadd scalar Weight11 = weight_X4, replace
+estadd scalar LATEsCvxWghtedAvg = beta_2SLS, replace
+esttab . using "outputs/angrist_table2.tex", keep(D) varlabels(D "Beta 2SLS")replace stats(Weight00 Weight10 Weight01 Weight11 LATEsCvxWghtedAvg) title("Weights and convex weighted average of the conditional LATEs\label{tab:Angrist2}")  mtitles("") style(tex) nonumber not nostar
 
+// 2.d.
 
+// 2.e.
 
+use "data/temp/intermediary_1.dta", clear
 
+ivregress 2sls Y (D = Z)
+est store CP_Est
+regress Y D if G == "CP"
+est store CP_True
 
-
-
-
-
-
-
-
-
-
-foreach var in prior_experience criminal_record business_background social_leader years_education age_candidate campaign_budget years_in_local_government {
-    gen gamma_`var' = beta_`var'
-    gen delta_`var' = betaD_`var'
-}
-			  
-			  
-gen id = _n
-			  
-
-
-
-scalar correction = 0
-foreach var in prior_experience criminal_record business_background social_leader years_education age_candidate campaign_budget years_in_local_government {
-    scalar correction = beta_`var' * betaD_`var'
-}			  
-			  
-
-drop weight_prior_experience weight_criminal_record weight_business_background weight_social_leader weight_years_education weight_age_candidate weight_campaign_budget weight_years_in_local_government correction
-
-* Assign weights for each variable
-foreach var in prior_experience criminal_record business_background social_leader years_education age_candidate campaign_budget years_in_local_government {
-    gen weight_`var' = cond(mod(id - 1, 3^(8 - _n)) / 3^(8 - _n - 1) == 0, 0.5, ///
-                          cond(mod(id - 1, 3^(8 - _n)) / 3^(8 - _n - 1) == 1, 1, 1.5))
-}
-
-gen correction = ///
-    weight_prior_experience * scalar(beta_prior_experience) * scalar(betaD_prior_experience) + ///
-    weight_criminal_record * scalar(beta_criminal_record) * scalar(betaD_criminal_record) + ///
-    weight_business_background * scalar(beta_business_background) * scalar(betaD_business_background) + ///
-    weight_social_leader * scalar(beta_social_leader) * scalar(betaD_social_leader) + ///
-    weight_years_education * scalar(beta_years_education) * scalar(betaD_years_education) + ///
-    weight_age_candidate * scalar(beta_age_candidate) * scalar(betaD_age_candidate) + ///
-    weight_campaign_budget * scalar(beta_campaign_budget) * scalar(betaD_campaign_budget) + ///
-    weight_years_in_local_government * scalar(beta_years_in_local_government) * scalar(betaD_years_in_local_government)
-
-histogram correction, normal title("Distribution of Corrections")
-
-
-
-
-
-prior_experience criminal_record business_background social_leader years_education age_candidate campaign_budget years_in_local_government
-
-
-
-
-ssc install rddensity
-ssc install lpdensity
-
-rddensity margin_victory, c(0) all
-scalar log_density_ratio = e(T_q)
-scalar se = e(se_q)
-scalar p_value = e(pv_q)
-scalar bandwidth_left = e(h_l)
-scalar bandwidth_right = e(h_r)
-estadd scalar LogDensityRatio = log_density_ratio
-estadd scalar StdError = se
-estadd scalar PValue = p_value
-estadd scalar Bandwidth_left = bandwidth_left	
-estadd scalar Bandwidth_right = bandwidth_right	
-esttab . using "outputs/mccrary_table.tex", replace stats(LogDensityRatio StdError PValue Bandwidth_left Bandwidth_right) title("McCrary density test\label{tab:McCrary}")  mtitles("margin_victory") style(tex) nonumber not nostar
-rddensity margin_victory, c(0) plot graph_opt(legend(off))
-graph export "outputs/mccrary_plot.pdf", replace
-
-
-
+esttab CP_Est CP_True ///
+using "outputs/CP_table_unconditional.tex", replace ///
+label booktabs ///
+title("Estimated and true unconditional LATEs \label{tab:CPunconditional}") ///
+mtitles("2SLS" "LATE") ///
+style(tex) nonumber noomitted nobaselevels

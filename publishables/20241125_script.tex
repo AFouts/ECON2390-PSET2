@@ -49,37 +49,30 @@ We get the following estimates (see table \ref{tab:model1}).
 
 The positive correlation between variables Y and PANwin that the coefficient suggests does not appear to be significant.
 
-We may be facing endogeneity: it is where the homicide rate is high and the drug ttafficking organisations have strong presence that the party promoting radical anti drug policies is elected (reverse causality); PAN may have prioritized campaigning in dangerous areas where their agenda gave them the best chances to wind (selection); where the local culture is more martial, making PAN most popular, results from weaker state capacity which is suitable for criminal organisations to thrive (omitted variable bias). We need to isolate exogenous variations in PANwin to infer causal results.
+We may be facing endogeneity:
+\begin{itemize}
+    \item It is where the homicide rate is high and the drug trafficking organisations have strong presence that the party promoting radical anti drug policies is elected (reverse causality);
+    \item PAN may have prioritized campaigning in dangerous areas where their agenda gave them the best chances to wind (selection);
+    \item In some places, the local culture may be more martial, making PAN most popular, a cultural trait that may result from weaker state capacity, which is suitable for criminal organisations to thrive (omitted variable bias).
+\end{itemize}
+We need to isolate exogenous variations in PANwin to infer causal results.
 
 For these reasons, \(\beta_1\) should be positively biased and \(\beta_0\) should be negatively biased.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{}
 
-The key assumptions necessary for the fuzzy regression discontinuity design to be valid in Dell's analysis are:
+The key assumption necessary for the fuzzy regression discontinuity design to be valid in Dell's analysis is:
 \begin{itemize}
-    \item Local monotonicity.\\
-    There exists a neighborhood \(G\) around \(X=c\) where any individual in the population has one of the following treatment selection respondes:
-    \begin{itemize}
-        \item \(T=t_c \implies D_i(x)=1_{\{x\geq c\}} \)
-        \item \(T=t_{at} \implies D_i(x)=1\)
-        \item \(T=t_{at} \implies D_i(x)=0\).
-    \end{itemize}
-    \item Continuity:\\
-    \(\forall t \in \{t_c,t_{at},t_{nt}\}, E(Y(1)\mid T=t,X=x), E(Y(0)\mid T=t,X=x), Pr(T=t \mid X=x) \text{ are continuous at } x=c\).
-    \item First stage\\
-    \( \lim_{x \to c^{-}}
-    Pr(D=1 \mid X=x)
-    \neq
-    \lim_{x \to c^{+}}
-    Pr(D=1 \mid X=x) \)
+    \item The continuity assumption: there is continuity of the potential outcomes at the cutoff.
 \end{itemize}
 
-From the text (need to reconceile that):
+In practice, it is necessary that:
 \begin{itemize}   
     \item All relevant factors besides treatment vary smoothly at the threshold between a PAN victory and loss.
-    \item Absence of selective sorting around the PAN win-loss threshold.
+    \item There is absence of selective sorting around the PAN win-loss threshold.
 \end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -103,7 +96,7 @@ We get the following plot of the estimated density of the running variable on bo
     \label{fig:McCrary}
 \end{figure}
 
-All in all, the is no evidence of manipulation or sorting of the running variable at the cutoff.  This supports the validity of the RDD design.
+It makes sense because it is very unlikely that the voters, in a general election, know the results in advance and change their behavior accordingly to get a precise margin of victory close to the cutoff.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -158,9 +151,9 @@ All in all, the is no evidence of manipulation or sorting of the running variabl
     \label{fig:binned_scatter_20bins_cubic}
 \end{figure}
 
-The discontinuity at the cutoff is robust to the three polynomial specifications.
+The discontinuity at the cutoff is robust to the three polynomial specifications (see figures \ref{fig:binned_scatter_esmv_linear}, \ref{fig:binned_scatter_esmv_quadratic}, \ref{fig:binned_scatter_esmv_cubic}, \ref{fig:binned_scatter_es_cubic}, \ref{fig:binned_scatter_qs_cubic}, \ref{fig:binned_scatter_10bins_cubic}, \ref{fig:binned_scatter_20bins_cubic}). However, the degree three specification seems to suffer from overfitting: there is no justification explaining the variations clost to the cutoff and the large discontinuity seems fabricated.
 
-The smaller the number of bins, the larger the discontinuity.
+The discontinuity at the cutoff is robust to the five procedures for bin number selection, with no major difference in the size of the cutoff.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -170,34 +163,90 @@ We get the following estimates (see table \ref{tab:model2}).
 
 \input{../outputs/model2_table.tex}
 
+We get significant RDD estimates for the non-parametric-trianguler-kernel-degree 1 case, for the parametric-degree 1 case, and for the parametric-degree 2 case. Hence the significance seems to be better overall for the parametric models in our case.
+
+The magnitudes of the estimates of the parametric and non-parametric estimates are close to one another.
+
+The magnitudes are greater than that of our rdplot discontinuities. That is due to the fact that the bandwidth used by default with rdplot differs from the optimal bandwidth selected by rdrobust. For example, if we choose the same bandwidth with rdplot for the parametric-linear case, we get a consistent discontinuity (see figure \ref{fig:binned_scatter_esmv_linear_corrected}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{../outputs/binned_scatter_esmv_linear_plot_corrected.pdf}
+    \caption{Binned scatter plot of PAN victory margin and homicide rate matching with a bandwidth matching the standard rdrobust one (number of bins selected via mimicking variance evenly-spaced method using spacings estimators, linear specification)}
+    \label{fig:binned_scatter_esmv_linear_corrected}
+\end{figure}
+
+The parametric-specific RDD assumptions:
+\begin{itemize}
+    \item A functional form is assumed for \(E(Y \mid X)\), allowing for different parameters on either side of the cutoff.
+    \item All observations are used regardless of their distance from the cutoff (the functional form holds globally).
+\end{itemize}
+
+The non-parametric-specific RDD assumptions:
+\begin{itemize}
+    \item Local continuity of the potential outcomes i.e., potential outcomes are assumed to be smooth within a small neighborhood of the cutoff and the estimation focuses only on this local region,
+    \item A bandwidth must be chosen around the cutoff to balance:
+    \begin{itemize}
+        \item Bias from including too many observations far from the cutoff,
+        \item Variance from using too few observations,
+    \end{itemize}
+    \item Observations are weighted based on their distance from the cutoff, typically giving more weight to those loser to it,
+    \item The small sample nature of the local estimates calls for bias correction and robust variance estimation.
+\end{itemize}
+
+Parametric RDD is typically more precise (lower standard errors) but risks bias if the model is misspecified.
+Non-parametric RDD sacrifices precision (higher standard errors) for robustness, making it better suited for estimating local effects near the cutoff with fewer assumptions. The choice depends on the situation:
+\begin{itemize}
+    \item If the functional form is likely well-specified: parametric methods give more precise estimates,
+    \item If there is uncertainty about the functional form: non-parametric methods give more reliable but less precise results.
+\end{itemize}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{}
 
-We get the following estimates (see table \ref{tab:model2-robustness}).
+We get the following estimates (see table \ref{tab:model2-robustness}) from the donut hole approach. This tests whether the observed treatment effect is driven by potential manipulation or discontinuities unrelated to the treatment itself. Indeed it reveals whether the units near the cutoff influence the results.
+
+More precisely, if individuals manipulate their running variable, it is likely that those near the cutoff be different across treatment and control groups. Therefore, a similar treatment effect with and without the donut hole suggests no manipulation near the cutoff. Note what is interpreted as manipulation could also just be local anomalies around the cutoff, like outliers. The McCrary test invalidated these possibilities.
+
+Here we do find a plumetting treatment effect after excluding 20\% of the optimal bandwidth on both sides. This apparent inconsistency with the results from the McCrary test is most proably explained by the fact that removing that many observations from the optimal bandwidth, especially the most weighted ones, is likely to reduce precision. We would need a critera to choose an appropriate donut hole size.
 
 \input{../outputs/model2_robustness_table.tex}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{../outputs/model2_robustness_plot.pdf}
+    \includegraphics[scale=0.8]{../outputs/model2_robustness_plot.pdf}
     \caption{RDD model robustness}
     \label{fig:model2-robustness}
 \end{figure}
+
+Using a loop the re-estimate the model with bandwidths ranging from \(0.5\) to \(1.5\) times the optimal bandidth, we get the following graph (see figure \ref{fig:model2-robustness}). Recall that A bandwidth must be chosen around the cutoff to balance:
+\begin{itemize}
+    \item Bias from including too many observations far from the cutoff,
+    \item Variance from using too few observations,
+\end{itemize}
+Here, as we increase the bandwidth, the confidence interval decreases, betraying shrinking variance. The magnitude of the estimates plateaus at the level of the one computed with the optimal bandwidth. This is likely to be specific to our model and dataset as it is not necessarily the case in the context of increasing bias. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{}
 
-John Marshall's concern about compensating differentials in Politician Characteristic Regression Discontinuity (PCRD) designs revolves around the idea that these designs fail to isolate the pure effect of a politician's characteristic (e.g., gender, party affiliation) because other characteristics, known as compensating differentials, influence both the election outcome and downstream effects.
+John Marshall's concern about compensating differentials in Politician Characteristic Regression Discontinuity (PCRD) designs hints at the idea that these designs fail to isolate the pure effect of a politician's characteristic (e.g., gender, party affiliation) because other characteristics, known as compensating differentials, influence both the election outcome and downstream the effects.
 
 For example, if voters are biased against women, female candidates in close elections may need to compensate by having higher levels of competence or qualifications than their male opponents. The characteristic of interest (e.g., gender) correlates with compensating differentials that offset its impact (e.g., competence).
 
-This means that PCRD designs compare candidates who are not equivalent on other key traits, leading to biased estimates of the effect of the characteristic of interest, since the effect measured is a compound treatment effect of the characteristic of interest and the compensation differentials.
+This means that PCRD designs compare candidates who are not equivalent on other important traits, leading to biased estimates of the effect of the characteristic of interest, since the effect measured is a compound treatment effect of the characteristic of interest and the compensating differentials.
 
 Marshall recommends to attempt to measure compensating differentials to bound or reinterpret the results.
 
-Dell leverages close elections to argue that PAN mayoral victories causally increase drug-related violence. The compensating differentials from winning PAN condidates may be their strong-willed disruptive and uncomproming characters (prone to get drug dealers' backs up), their expected lower level of corruption (prone to increase violence from the mobsters), their stronger connections with federal authorities (prone to make anti crime policies even stronger locally), or their lack of knowledge in sociology of deviance (prone to make them both attractively radical and acting without tact). There would then be selection of these traits for the mayors in the treatment group. 
+Dell uses close elections to argue that PAN mayoral victories causally increase drug-related violence. The compensating differentials from winning PAN condidates may be:
+\begin{itemize}
+    \item Their strong-willed disruptive and uncompromising characters (prone to get drug dealers' backs up),
+    \item Their expected lower level of corruption (prone to increase violence from the mobsters as the mayer would never compromise with them and cast a blind eye),
+    \item Their stronger connections with federal authorities (prone to make anti crime policies even stronger locally and increase violence in retaliation),
+    \item Their populist views rejecting sophisticated understanding of deviance (prone to make them both attractively radical and acting without tact).
+\end{itemize} 
+There would then be selection of these traits for the mayors in the treatment group.
 
 \subsection{}
 
@@ -217,9 +266,9 @@ Dell leverages close elections to argue that PAN mayoral victories causally incr
 
 \input{../outputs/../outputs/characteristics_table.tex}
 
-We get the following estimates (see table \ref{tab:characteristics}).
+Testing for discontinuities is candidate characteristics, we get the following estimates (see table \ref{tab:characteristics} and figure \ref{fig:characteristics}). I include a principal component analysis index of all the characteristics together (see table \ref{tab:characteristics} and figure \ref{fig:pca_index}). The RDD estimates are strongly significant for campaign budget and principal component analysis index. This implies that compensating differentials affect Dell's results: what we thought was the treatment effect of a PAN victory seems in fact to be the compound treatment effect of a PAN victory and the compensating differential in terms of campaign budget.
 
-Covariate adjustment in a RDD is not sufficient to address the problem of compensating differentials, because these differentials introduce biases that are inherently linked to both observable and unobservable characteristics. Even if observable covariates balanced or controlled for, unobservable characteristics (e.g., competence) could vary discontinuously at the threshold, biasing the treatment effect. Also, covariates may include variables affected by the treatment itself (e.g., campaign funding postulated by voter - donors - and party organiztion expectations of winning). Including these covariates introduces post-treatment bias (conditioning on factors influenced by the treatmet), contaminating causal estimates.
+Covariate adjustment in a RDD is not sufficient to address the problem of compensating differentials, because these differentials introduce biases that are inherently linked to both observable and unobservable characteristics. Even if observable covariates balanced or controlled for, unobservable characteristics (e.g., competence) could vary discontinuously at the threshold, biasing the treatment effect. Also, covariates may include variables affected by the treatment itself (e.g., campaign funding postulated by voter - donors - and party organization expectations of winning). Including these covariates would introduce post-treatment bias (conditioning on factors influenced by the treatmet), contaminating causal estimates.
 
 All in all, covariate adjustment can reduce noise and account for observable imbalances, but it cannot fully address biases introduced by compensating differentials, especially when unobservable factors are at play.
 
@@ -253,10 +302,11 @@ With:
     =
     V_{id}-V_{0d}
     \),
-    \item \( V_{id}\) and \(V{0d}\) the vote shares of the most popular candidates of types \(X_{id}=1\) and \(X_{id}=1\) respectively,
+    \item \( V_{id}\) and \(V_{0d}\) the vote shares of the most popular candidates of types \(X_{id}=1\) and \(X_{id}=1\) respectively,
     \item  \(X_{id}\) a binary characteristic that helps candidate \(i\) win votes.
 \end{itemize}
 
+We implement it using the procdedure described and get normally distributed correction terms centered on \(5.26\) and with a sample standard deviation of \(2.66\) (see figure \ref{fig:correction}).
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{../outputs/correction_term_distribution_plot.pdf}
@@ -270,24 +320,37 @@ Recalling that \(\hat{\tau}_{PCRD} = 80.25^{*}\text{ }(2.25)\), the sign and the
 
 \subsection{}
 
-\input{../outputs/IV_2SLS_IV_Wald_table.tex}
+We compute the 2SLS estimator and the Wald estimator, as described (see table \ref{tab:IV-2SLS-IV-Wald}). The 2SLS and residualzed Wald estimators are equal.
 
-The 2SLS and residualzed Wald estimators are equal.
+\input{../outputs/IV_2SLS_IV_Wald_table.tex}
 
 \subsection{}
 
-A researcher observing \((Y_i,D_i,Z_i,X_i)\) would identify the conditional-on-\(X_i\) LATESs \(E[Y_i(1)-Y_i(0) \mid X_i, G = CP]\) by 2SLS on observations such that \((X_i = Z_i)\). This is equivalent to eestimating the structural model by OLS on this restricted dataset.
+A researcher observing \((Y_i,D_i,Z_i,X_i)\) would identify the conditional-on-\(X_i\) LATESs \(E[Y_i(1)-Y_i(0) \mid X_i, G = CP]\) by running 2SLS on the dateset restricted to each level of \(X_i\) respectively. This is an intuition that we can suspect is not relevant considering how unbalanced our data is by construction.
 
 \input{../outputs/IV_2SLS_IV_Wald_CP_table.tex}
 
+We compute estimated and real coefficients (see table \ref{tab:IV-2SLS-IV-Wald-CP}). As we can see, the 2SLS coefficients are close but upper-biased.
+
 \subsection{}
 
-\input{../outputs/angrist_table.tex}
+We compute the convex-weighted average of the conditional LATEs by appropriately using sample means and variances through a series of collapses (see table \ref{tab:Angrist2}). The groups that get the most weight are \(X_i=(1,0)\) and \(X_i=(1,1)\). For the 2SLS estimator to identify the unconditional LATE, we need to have:
+\[\forall x \in \{(0,0),(1,0),(0,1),(1,1)\}, E[Y_i(1)-Y_i(0)\mid Xi,G=CP] = E[Y_i(1)-Y_i(0)\mid G=CP] \text{ (constant)}\]
+In our data generating process, contrary to what we did, would, \(Y_i(1)\) to be built orthogonal to \(X_i\).
 
+\input{../outputs/angrist_table2.tex}
 
-We get \(\hat{Beta}_{2SLS} =7.8765399\), which is close to our initial 2SLS estimation.
+\subsection{}
 
-The group that gets more weight is \(X=(1,0)\).
+If we exclude the \(X_1.X_2\) interaction term from the set of controls, then the estimated effect through \(x_1\) of \(X_i=(1,0)\) is the same as that of \(X_i=(1,1)\). Also, the estimated effect through \(x_2\) of \(X_i=(0,1)\) is the same as the estimated effect of \(X_i=(1,1)\). It is still a convex-weighted average of treatment effects, this time of two treatment effects only.
+
+\subsection{}
+
+\input{../outputs/CP_table_unconditional.tex}
+
+A researcher observing \((Y_i,D_i,Z_i,X_i)\) would identify the unconditional LATES \(E[Y_i(1)-Y_i(0) \mid G = CP]\) by running 2SLS on the dateset without controlling for \(X_i\). This is an intuition that we can suspect is not relevant considering how unbalanced our data is by construction.
+
+We compute estimated and real coefficients (see table \ref{tab:CPunconditional}). As we can see, the 2SLS coefficient is close but upper-biased.
 
 
 \begin{thebibliography}{9}
@@ -297,6 +360,9 @@ Dell, Melissa. “Trafficking Networks and the Mexican Drug War.” American Eco
 
 \bibitem{marshall2024}
 Marshall, J. (2024), Can Close Election Regression Discontinuity Designs Identify Effects of Winning Politician Characteristics?. American Journal of Political Science, 68: 494-510.
+
+\bibitem{marshall2024}
+Joshua D. Angrist, Guido W. Imbens, 1995. "Average Causal Response with Variable Treatment Intensity," NBER Technical Working Papers 0127, National Bureau of Economic Research, Inc.
 
 \end{thebibliography}
 

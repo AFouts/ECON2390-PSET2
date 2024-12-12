@@ -1,24 +1,24 @@
 \begin{table}[htbp]\centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\caption{IV\label{tab:IV-2SLS-IV-Wald}}
+\caption{IV estimation\label{tab:IV-2SLS-IV-Wald}}
 \begin{tabular}{l*{2}{c}}
 \toprule
                     &\multicolumn{1}{c}{2SLS}&\multicolumn{1}{c}{Wald}\\
 \midrule
-D                   &       7.633\sym{***}&       7.633\sym{***}\\
-                    &     (46.28)         &     (46.02)         \\
+D                   &       7.836\sym{***}&       7.836\sym{***}\\
+                    &     (52.56)         &     (52.27)         \\
 \addlinespace
-x1                  &       0.124\sym{*}  &                     \\
-                    &      (2.25)         &                     \\
+x1                  &       0.137\sym{*}  &                     \\
+                    &      (2.56)         &                     \\
 \addlinespace
-x2                  &      0.0708         &                     \\
-                    &      (1.44)         &                     \\
+x2                  &      0.0724         &                     \\
+                    &      (1.54)         &                     \\
 \addlinespace
-x1x2                &       0.282\sym{***}&                     \\
-                    &      (3.84)         &                     \\
+x1x2                &       0.247\sym{***}&                     \\
+                    &      (3.48)         &                     \\
 \addlinespace
-Constant            &       1.039\sym{***}&       1.208\sym{***}\\
-                    &     (10.49)         &     (13.17)         \\
+Constant            &       0.929\sym{***}&       1.096\sym{***}\\
+                    &     (10.22)         &     (13.18)         \\
 \midrule
 Observations        &       10000         &       10000         \\
 \bottomrule

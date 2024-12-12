@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  1 DEC 2024 23:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.25)  11 DEC 2024 23:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -523,7 +523,11 @@ Package hyperref Info: Option `colorlinks' set `true' on input line 24.
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count322
 \l__pdf_internal_box=\box108
-) (./20241125_script.aux)
+) (./20241125_script.aux
+
+Package natbib Warning: Citation `marshall2024' multiply defined.
+
+)
 \openout1 = `20241125_script.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
@@ -627,106 +631,127 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 37.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (../outputs/model1_table.tex) [1
 
-{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (../outputs/mccrary_table.tex) [2{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-<../outputs/mccrary_plot.pdf, id=91, 542.025pt x 325.215pt>
+{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (../outputs/mccrary_table.tex)
+<../outputs/mccrary_plot.pdf, id=89, 542.025pt x 325.215pt>
 File: ../outputs/mccrary_plot.pdf Graphic file (type pdf)
 <use ../outputs/mccrary_plot.pdf>
-Package pdftex.def Info: ../outputs/mccrary_plot.pdf  used on input line 101.
+Package pdftex.def Info: ../outputs/mccrary_plot.pdf  used on input line 94.
 (pdftex.def)             Requested size: 528.93675pt x 317.37364pt.
-<../outputs/binned_scatter_esmv_linear_plot.pdf, id=92, 542.025pt x 325.215pt>
+ [2{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+<../outputs/binned_scatter_esmv_linear_plot.pdf, id=97, 542.025pt x 325.215pt>
 File: ../outputs/binned_scatter_esmv_linear_plot.pdf Graphic file (type pdf)
 <use ../outputs/binned_scatter_esmv_linear_plot.pdf>
-Package pdftex.def Info: ../outputs/binned_scatter_esmv_linear_plot.pdf  used on input line 114.
+Package pdftex.def Info: ../outputs/binned_scatter_esmv_linear_plot.pdf  used on input line 107.
 (pdftex.def)             Requested size: 271.01183pt x 162.6071pt.
  [3 <../outputs/mccrary_plot.pdf>]
-<../outputs/binned_scatter_esmv_quadratic_plot.pdf, id=108, 542.025pt x 325.215pt>
+<../outputs/binned_scatter_esmv_quadratic_plot.pdf, id=112, 542.025pt x 325.215pt>
 File: ../outputs/binned_scatter_esmv_quadratic_plot.pdf Graphic file (type pdf)
 <use ../outputs/binned_scatter_esmv_quadratic_plot.pdf>
-Package pdftex.def Info: ../outputs/binned_scatter_esmv_quadratic_plot.pdf  used on input line 121.
+Package pdftex.def Info: ../outputs/binned_scatter_esmv_quadratic_plot.pdf  used on input line 114.
 (pdftex.def)             Requested size: 271.01183pt x 162.6071pt.
-<../outputs/binned_scatter_esmv_cubic_plot.pdf, id=109, 542.025pt x 325.215pt>
+<../outputs/binned_scatter_esmv_cubic_plot.pdf, id=113, 542.025pt x 325.215pt>
 File: ../outputs/binned_scatter_esmv_cubic_plot.pdf Graphic file (type pdf)
 <use ../outputs/binned_scatter_esmv_cubic_plot.pdf>
-Package pdftex.def Info: ../outputs/binned_scatter_esmv_cubic_plot.pdf  used on input line 128.
+Package pdftex.def Info: ../outputs/binned_scatter_esmv_cubic_plot.pdf  used on input line 121.
 (pdftex.def)             Requested size: 271.01183pt x 162.6071pt.
-<../outputs/binned_scatter_es_cubic_plot.pdf, id=110, 542.025pt x 325.215pt>
+<../outputs/binned_scatter_es_cubic_plot.pdf, id=114, 542.025pt x 325.215pt>
 File: ../outputs/binned_scatter_es_cubic_plot.pdf Graphic file (type pdf)
 <use ../outputs/binned_scatter_es_cubic_plot.pdf>
-Package pdftex.def Info: ../outputs/binned_scatter_es_cubic_plot.pdf  used on input line 135.
+Package pdftex.def Info: ../outputs/binned_scatter_es_cubic_plot.pdf  used on input line 128.
 (pdftex.def)             Requested size: 271.01183pt x 162.6071pt.
  [4 <../outputs/binned_scatter_esmv_linear_plot.pdf> <../outputs/binned_scatter_esmv_quadratic_plot.pdf> <../outputs/binned_scatter_esmv_cubic_plot.pdf>]
-<../outputs/binned_scatter_qs_cubic_plot.pdf, id=136, 542.025pt x 325.215pt>
+<../outputs/binned_scatter_qs_cubic_plot.pdf, id=140, 542.025pt x 325.215pt>
 File: ../outputs/binned_scatter_qs_cubic_plot.pdf Graphic file (type pdf)
 <use ../outputs/binned_scatter_qs_cubic_plot.pdf>
-Package pdftex.def Info: ../outputs/binned_scatter_qs_cubic_plot.pdf  used on input line 142.
+Package pdftex.def Info: ../outputs/binned_scatter_qs_cubic_plot.pdf  used on input line 135.
 (pdftex.def)             Requested size: 271.01183pt x 162.6071pt.
-<../outputs/binned_scatter_10bins_cubic_plot.pdf, id=137, 542.025pt x 325.215pt>
+<../outputs/binned_scatter_10bins_cubic_plot.pdf, id=141, 542.025pt x 325.215pt>
 File: ../outputs/binned_scatter_10bins_cubic_plot.pdf Graphic file (type pdf)
 <use ../outputs/binned_scatter_10bins_cubic_plot.pdf>
-Package pdftex.def Info: ../outputs/binned_scatter_10bins_cubic_plot.pdf  used on input line 149.
+Package pdftex.def Info: ../outputs/binned_scatter_10bins_cubic_plot.pdf  used on input line 142.
 (pdftex.def)             Requested size: 271.01183pt x 162.6071pt.
-<../outputs/binned_scatter_20bins_cubic_plot.pdf, id=138, 542.025pt x 325.215pt>
+<../outputs/binned_scatter_20bins_cubic_plot.pdf, id=142, 542.025pt x 325.215pt>
 File: ../outputs/binned_scatter_20bins_cubic_plot.pdf Graphic file (type pdf)
 <use ../outputs/binned_scatter_20bins_cubic_plot.pdf>
-Package pdftex.def Info: ../outputs/binned_scatter_20bins_cubic_plot.pdf  used on input line 156.
+Package pdftex.def Info: ../outputs/binned_scatter_20bins_cubic_plot.pdf  used on input line 149.
 (pdftex.def)             Requested size: 271.01183pt x 162.6071pt.
- [5 <../outputs/binned_scatter_es_cubic_plot.pdf> <../outputs/binned_scatter_qs_cubic_plot.pdf> <../outputs/binned_scatter_10bins_cubic_plot.pdf>] (../outputs/model2_table.tex) (../outputs/model2_robustness_table.tex)
-<../outputs/model2_robustness_plot.pdf, id=166, 542.025pt x 325.215pt>
+ [5 <../outputs/binned_scatter_es_cubic_plot.pdf> <../outputs/binned_scatter_qs_cubic_plot.pdf> <../outputs/binned_scatter_10bins_cubic_plot.pdf>] (../outputs/model2_table.tex)
+<../outputs/binned_scatter_esmv_linear_plot_corrected.pdf, id=177, 542.025pt x 325.215pt>
+File: ../outputs/binned_scatter_esmv_linear_plot_corrected.pdf Graphic file (type pdf)
+<use ../outputs/binned_scatter_esmv_linear_plot_corrected.pdf>
+Package pdftex.def Info: ../outputs/binned_scatter_esmv_linear_plot_corrected.pdf  used on input line 174.
+(pdftex.def)             Requested size: 271.01183pt x 162.6071pt.
+ [6 <../outputs/binned_scatter_20bins_cubic_plot.pdf>] [7] [8 <../outputs/binned_scatter_esmv_linear_plot_corrected.pdf>] (../outputs/model2_robustness_table.tex)
+<../outputs/model2_robustness_plot.pdf, id=210, 542.025pt x 325.215pt>
 File: ../outputs/model2_robustness_plot.pdf Graphic file (type pdf)
 <use ../outputs/model2_robustness_plot.pdf>
-Package pdftex.def Info: ../outputs/model2_robustness_plot.pdf  used on input line 183.
-(pdftex.def)             Requested size: 271.01183pt x 162.6071pt.
-
-Overfull \hbox (3.20308pt too wide) in paragraph at lines 192--193
+Package pdftex.def Info: ../outputs/model2_robustness_plot.pdf  used on input line 218.
+(pdftex.def)             Requested size: 433.62057pt x 260.17235pt.
+ [9]
+Overfull \hbox (3.20308pt too wide) in paragraph at lines 234--235
 []\OT1/cmr/m/n/10 John Mar-shall's con-cern about com-pen-sat-ing dif-fer-en-tials in Politi-cian Char-ac-ter-is-tic Re-gres-sion Dis-con-ti-nu-ity (PCRD)
  []
 
-[6 <../outputs/binned_scatter_20bins_cubic_plot.pdf> <../outputs/model2_robustness_plot.pdf>] [7]
-<../outputs/characteristics_binned_scatter_esmv_linear_plot.pdf, id=193, 1084.05pt x 1445.4pt>
+[10 <../outputs/model2_robustness_plot.pdf>]
+<../outputs/characteristics_binned_scatter_esmv_linear_plot.pdf, id=228, 1084.05pt x 1445.4pt>
 File: ../outputs/characteristics_binned_scatter_esmv_linear_plot.pdf Graphic file (type pdf)
 <use ../outputs/characteristics_binned_scatter_esmv_linear_plot.pdf>
-Package pdftex.def Info: ../outputs/characteristics_binned_scatter_esmv_linear_plot.pdf  used on input line 206.
+Package pdftex.def Info: ../outputs/characteristics_binned_scatter_esmv_linear_plot.pdf  used on input line 255.
 (pdftex.def)             Requested size: 542.02368pt x 722.69824pt.
 
-Overfull \hbox (13.08693pt too wide) in paragraph at lines 206--207
+Overfull \hbox (13.08693pt too wide) in paragraph at lines 255--256
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 55.31288pt on input line 209.
+LaTeX Warning: Float too large for page by 55.31288pt on input line 258.
 
-<../outputs/characteristics_pca_index_binned_scatter_esmv_linear_plot.pdf, id=194, 542.025pt x 325.215pt>
+<../outputs/characteristics_pca_index_binned_scatter_esmv_linear_plot.pdf, id=229, 542.025pt x 325.215pt>
 File: ../outputs/characteristics_pca_index_binned_scatter_esmv_linear_plot.pdf Graphic file (type pdf)
 <use ../outputs/characteristics_pca_index_binned_scatter_esmv_linear_plot.pdf>
-Package pdftex.def Info: ../outputs/characteristics_pca_index_binned_scatter_esmv_linear_plot.pdf  used on input line 213.
+Package pdftex.def Info: ../outputs/characteristics_pca_index_binned_scatter_esmv_linear_plot.pdf  used on input line 262.
 (pdftex.def)             Requested size: 271.01183pt x 162.6071pt.
-(../outputs/../outputs/characteristics_table.tex) [8 <../outputs/characteristics_pca_index_binned_scatter_esmv_linear_plot.pdf>] [9 <../outputs/characteristics_binned_scatter_esmv_linear_plot.pdf>]
-<../outputs/correction_term_distribution_plot.pdf, id=218, 542.025pt x 325.215pt>
+(../outputs/../outputs/characteristics_table.tex) [11 <../outputs/characteristics_pca_index_binned_scatter_esmv_linear_plot.pdf>] [12 <../outputs/characteristics_binned_scatter_esmv_linear_plot.pdf>] [13]
+<../outputs/correction_term_distribution_plot.pdf, id=264, 542.025pt x 325.215pt>
 File: ../outputs/correction_term_distribution_plot.pdf Graphic file (type pdf)
 <use ../outputs/correction_term_distribution_plot.pdf>
-Package pdftex.def Info: ../outputs/correction_term_distribution_plot.pdf  used on input line 262.
+Package pdftex.def Info: ../outputs/correction_term_distribution_plot.pdf  used on input line 312.
 (pdftex.def)             Requested size: 271.01183pt x 162.6071pt.
- [10] (../outputs/IV_2SLS_IV_Wald_table.tex) [11 <../outputs/correction_term_distribution_plot.pdf>] (../outputs/IV_2SLS_IV_Wald_CP_table.tex) (../outputs/angrist_table.tex) [12] [13] (./20241125_script.aux)
+ (../outputs/IV_2SLS_IV_Wald_table.tex) (../outputs/IV_2SLS_IV_Wald_CP_table.tex) [14 <../outputs/correction_term_distribution_plot.pdf>] (../outputs/angrist_table2.tex) [15] (../outputs/CP_table_unconditional.tex) [16]
+
+Package natbib Warning: There were multiply defined citations.
+
+[17
+pdfTeX warning (ext4): destination with the same identifier (name{cite.marshall2024}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.369 \end{document}
+                    ] (./20241125_script.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `20241125_script.out' has not changed.
-(rerunfilecheck)             Checksum: D49F9AAE7012049A9051970D96B4F54C;832.
+(rerunfilecheck)             Checksum: 90365BC82B487B71D3FD8892D9CD64C0;932.
  ) 
 Here is how much of TeX's memory you used:
- 15596 strings out of 474116
- 251751 string characters out of 5743681
- 1941187 words of memory out of 5000000
- 37634 multiletter control sequences out of 15000+600000
+ 15621 strings out of 474116
+ 252638 string characters out of 5743681
+ 1944187 words of memory out of 5000000
+ 37648 multiletter control sequences out of 15000+600000
  567843 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,79p,881b,582s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on 20241125_script.pdf (13 pages, 606570 bytes).
+ 75i,12n,79p,887b,582s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on 20241125_script.pdf (17 pages, 626441 bytes).
 PDF statistics:
- 342 PDF objects out of 1000 (max. 8388607)
- 252 compressed objects within 3 object streams
- 51 named destinations out of 1000 (max. 500000)
- 173 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 383 PDF objects out of 1000 (max. 8388607)
+ 290 compressed objects within 3 object streams
+ 59 named destinations out of 1000 (max. 500000)
+ 194 words of extra memory for PDF output out of 10000 (max. 10000000)
 
